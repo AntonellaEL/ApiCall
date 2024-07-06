@@ -27,4 +27,26 @@ const llamandoAPI = async () => {
   }
 }
 
+const buscarUsuario = async () => {
+  const userId = document.getElementById('userIdInput').value;
+  if (!userId) {
+    alert('Por favor ingrese un ID');
+    return;
+  }
+
+  try {
+    const respuesta = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+    const user = await respuesta.json();
+
+    if (respuesta.ok) {
+      const userInfo = document.getElementById('userInfo');
+      userInfo.textContent = `Nombre: ${user.name}, Teléfono: ${user.phone}`;
+    } else {
+      alert('Usuario no encontrado');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 llamandoAPI();
